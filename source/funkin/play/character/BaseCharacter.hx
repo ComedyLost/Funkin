@@ -634,6 +634,11 @@ class BaseCharacter extends Bopper
     // If another script cancelled the event, don't do anything.
     if (event.eventCanceled) return;
 
+    var noteKind:NoteKind = NoteKindManager.getNoteKind(event.holdNote.noteData.kind);
+    // Let the character naturally transition back to their idle/dance animation
+    // if the notekind is set to noanim.
+    if (noteKind != null && noteKind.noanim) return;
+
     if (event.holdNote.noteData.getMustHitNote() && characterType == BF)
     {
       holdTimer = 0;
